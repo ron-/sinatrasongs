@@ -1,22 +1,32 @@
+require 'sass'
 require 'sinatra'
 require 'sinatra/reloader' if development?
+require 'slim'
+
+
+get '/styles.css' do
+  scss :styles
+end
 
 get '/' do
   @title = "Songs By Sinatra"
-  erb :home
+  slim :home
 end
 
 get '/about' do
   @title = "About"
-  erb :about
+  slim :about
 end
 
 get '/contact' do
   @title = "Contact Us"
-  erb :contact
+  slim :contact
+end
+
+get '/fake-error' do
 end
 
 not_found do
   @title = "WTF?"
-  erb :not_found
+  slim :not_found
 end
