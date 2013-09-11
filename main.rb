@@ -1,12 +1,10 @@
-require 'sass'
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'slim'
+require 'sass'
+require './song'
 
-
-get '/styles.css' do
-  scss :styles
-end
+get('/styles.css'){ scss :styles }
 
 get '/' do
   @title = "Songs By Sinatra"
@@ -21,6 +19,16 @@ end
 get '/contact' do
   @title = "Contact Us"
   slim :contact
+end
+
+get '/songs' do
+  @songs = Song.all
+  slim :songs
+end
+
+get '/songs/:id' do
+  @song = Song.get(params[:id])
+  slim :show_song
 end
 
 get '/fake-error' do
